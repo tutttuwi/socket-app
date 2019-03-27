@@ -15,9 +15,23 @@
 - Nodejsのインストール
 
 ```bash
+// nodejsインストール
 sudo yum install -y gcc-c++ make
 curl -sL https://rpm.nodesource.com/setup_10.x | sudo bash -
 sudo yum install -y nodejs
 
+// gitインストール
+sudo yum install git
+
+// node-modulesインストール
+cd socketServer
+npm install
+
+
 ```
+
+## BOOTSTRAP
+
+- Bootstrap4に用意されているクラス
+  - <https://webnetamemo.com/coding/bootstrap4/201710065870>
 

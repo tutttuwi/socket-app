@@ -6,11 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>socket.io chat</title>
     <!-- BootstrapのCSS読み込み -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet" /> -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
     <!-- jQuery読み込み -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <!-- BootstrapのJS読み込み -->
-    <script src="js/bootstrap.min.js"></script>
+    <!-- <script src="js/bootstrap.min.js"></script> -->
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"
+    ></script>
     <!-- SocketのJS読み込み -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
@@ -18,12 +39,15 @@
       textarea {
         margin: auto;
         width: 90%;
-        height: 80%;
+        height: 50%;
       }
       body {
-        background: #ccc;
+        background: #eee;
         width: 100%;
         height: 100%;
+      }
+      button {
+        margin: 5px;
       }
       .container {
         margin: auto;
@@ -37,22 +61,62 @@
       <h1>SCT MEMO</h1>
       <ul id="messages"></ul>
       <form id="message_form" action="#">
-        <textarea id="memo_area" class="form-control" rows="50"></textarea>
+        <input id="title_area" class="form-control m-3" autocomplete="off" />
+        <textarea id="memo_area" class="form-control m-3" rows="30"></textarea>
+        <button id="submit" type="submit" class="btn btn-success float-right">登録</button>
       </form>
     </div>
     <script>
+      // ==============================
+      //  関数定義領域
+      // ==============================
+      function sleep(waitSec, callbackFunc) {
+        var spanedSec = 0;
+
+        var waitFunc = function() {
+          spanedSec++;
+
+          if (spanedSec >= waitSec) {
+            if (callbackFunc) callbackFunc();
+            return;
+          }
+
+          clearTimeout(id);
+          id = setTimeout(waitFunc, 1000);
+        };
+
+        var id = setTimeout(waitFunc, 1000);
+      }
+      // ==============================
+      //  ソケット定義領域
+      // ==============================
       var socketio = io();
       $(function() {
-        // $("#message_form").submit(function() {
-        //   socketio.emit("message", $("#input_msg").val());
-        //   $("#input_msg").val("");
-        //   return false;
-        // });
-        socketio.on("text_output", function(text_output) {
-          $("#memo_area").val(text_output);
+        // タイトルエリア
+        socketio.on("title_output", title_output => {
+          $("#title_area").val(title_output);
         });
-        $("#memo_area").change(function() {
-          socketio.emit("text_input", $("#memo_area").val());
+        $("#title_area").change(() => {
+          socketio.emit("title_input", $("#title_area").val());
+          return false;
+        });
+        // テキストエリア
+        socketio.on("memo_output", memo_output => {
+          $("#memo_area").val(memo_output);
+        });
+        $("#memo_area").change(() => {
+          socketio.emit("memo_input", $("#memo_area").val());
+          return false;
+        });
+        // 登録ボタン
+        socketio.on("clear", () => {
+          $("#title_area").val("");
+          $("#memo_area").val("");
+        });
+        $("#submit").click(() => {
+          if ($("#title_area").val() && $("#memo_area").val()) {
+            socketio.emit("regist", { title: $("#title_area").val(), memo: $("#memo_area").val() });
+          }
           return false;
         });
       });
