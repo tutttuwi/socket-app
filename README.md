@@ -25,12 +25,16 @@ sudo yum install git
 
 // node-modulesインストール
 cd socketServer
-npm install
+sudo npm install
 
 // forever インストール
-npm install forever -g
+sudo npm install forever -g
+
 // 実行
-forever start -a -d app.js
+sudo forever start -a -d app.js
+
+// メモ
+// 権限がない場合適宜 `sudo` を付与してコマンドを実行すること
 
 ```
 
@@ -48,3 +52,12 @@ amazon linuxでうまくforeverがインストールできなかったので、u
 - CSSで右寄せ
   - <https://www.sejuku.net/blog/72034>
 
+## 実装したこと
+- 上部がタイトル領域（保存ファイル名になるので拡張子まで入れること）
+- 下部が本文領域
+- タイトル、本文を入力して登録ボタンを押下すると、アプリの中の `data` ディレクトリにファイルが保存される
+
+
+## 理解したことリスト
+- `nodejs` で `socket.io` を使用する方法がわかった
+- 
