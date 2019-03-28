@@ -30,6 +30,10 @@ sudo npm install
 // forever インストール
 sudo npm install forever -g
 
+// アプリディレクトリ直下にdataフォルダが存在しない場合、作成
+cd [アプリのルートディレクトリ]
+mkdir data
+
 // 実行
 sudo forever start -a -d app.js
 
