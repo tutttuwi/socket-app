@@ -27,11 +27,24 @@ sudo yum install git
 cd socketServer
 npm install
 
+// forever インストール
+npm install forever -g
+// 実行
+forever start -a -d app.js
 
 ```
 
-## BOOTSTRAP
+amazon linuxでうまくforeverがインストールできなかったので、ubuntuで再試行
+
+- ubuntuはユーザ名が「ubuntu」
+- セットアップ参考サイト
+  - <https://qiita.com/seibe/items/36cef7df85fe2cefa3ea>
+
+## 装飾関連
 
 - Bootstrap4に用意されているクラス
   - <https://webnetamemo.com/coding/bootstrap4/201710065870>
+
+- CSSで右寄せ
+  - <https://www.sejuku.net/blog/72034>
 

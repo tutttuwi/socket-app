@@ -37,9 +37,9 @@
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <style>
       textarea {
-        margin: auto;
-        width: 90%;
-        height: 50%;
+        /* margin: auto; */
+        /* width: 50%;
+        height: 50%; */
       }
       body {
         background: #eee;
@@ -50,22 +50,27 @@
         margin: 5px;
       }
       .container {
-        margin: auto;
+        /* margin: auto;
         width: 1024px;
-        height: 960px;
+        height: 960px; */
+      }
+      form {
+        width: 80%;
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>SCT MEMO</h1>
-      <ul id="messages"></ul>
-      <form id="message_form" action="#">
-        <input id="title_area" class="form-control m-3" autocomplete="off" />
-        <textarea id="memo_area" class="form-control m-3" rows="30"></textarea>
-        <button id="submit" type="submit" class="btn btn-success float-right">登録</button>
-      </form>
+      <div class="text-center">
+        <h1>SCT MEMO</h1>
+        <form id="message_form" class="mx-auto" action="#">
+          <input id="title_area" class="form-control my-1" autocomplete="off" />
+          <textarea id="memo_area" class="form-control my-1" rows="15"></textarea>
+          <button id="submit" type="submit" class="btn btn-success float-right">登録</button>
+        </form>
+      </div>
     </div>
+
     <script>
       // ==============================
       //  関数定義領域
